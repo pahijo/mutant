@@ -3,12 +3,11 @@ package main
 import (
 	"database/sql"
 	"encoding/json" // package to encode and decode the json into struct and vice versa
+	"flag"
 	"fmt"
 	"log"
 	"net/http" // used to access the request and response object of the api
 	"os"       // used to read the environment variable
-
-	"flag"
 
 	"github.com/joho/godotenv" // package used to read the .env file
 	_ "github.com/lib/pq"      // postgres golang driver
@@ -119,7 +118,7 @@ func getRatio() (XDna, error) {
 
 	// close the statement
 	defer rows.Close()
-
+	fmt.Println("Cierra conexion")
 	// iterate over the rows
 	for rows.Next() {
 
@@ -130,11 +129,11 @@ func getRatio() (XDna, error) {
 			log.Fatalf("Unable to scan the row. %v", err)
 		}
 	}
+	fmt.Println("Toma data")
 	mutant := flag.Int64("Mutante", item.Mutante, "total number of mutants")
 	human := flag.Int64("Humano", item.Humano, "number of humans")
 
 	item.RatioT = NewRatio(*mutant, *human)
-	// return empty user on error
 	return item, err
 }
 
