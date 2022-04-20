@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -46,3 +47,7 @@ func (d *XDna) ToJson() ([]byte, error) {
 }
 
 type Ratio float64
+
+func (r Ratio) String() string {
+	return fmt.Sprintf("%.0f%%", r)
+}

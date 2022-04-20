@@ -35,7 +35,6 @@ func main() {
 	server.Handle("GET", "/stats/", server.AddMiddleware(Stats))
 	server.Listen()
 }
-
 func check(e error) {
 	if e != nil {
 		log.Println(e)

@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"encoding/json" // package to encode and decode the json into struct and vice versa
-	"flag"
 	"fmt"
 	"log"
 	"net/http" // used to access the request and response object of the api
@@ -129,18 +128,10 @@ func getRatio() (XDna, error) {
 			log.Fatalf("Unable to scan the row. %v", err)
 		}
 	}
-	fmt.Println("Toma data")
-	mutant := flag.Int64("Mutante", item.Mutante, "total number of mutants")
-	human := flag.Int64("Humano", item.Humano, "number of humans")
-
-	item.RatioT = NewRatio(*mutant, *human)
+	item.RatioT = NewRatio(item.Mutante, item.Humano)
 	return item, err
 }
 
-func (r Ratio) String() string {
-	return fmt.Sprintf("%.0f%%", r)
-}
-
 func NewRatio(mutante, humano int64) Ratio {
-	return Ratio(mutante) / Ratio(humano) * 100.0
+	return Ratio(mutante) / Ratio(humano)
 }

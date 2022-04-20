@@ -153,7 +153,6 @@ func isMutantO(matrizDna [6][6]string, wg *sync.WaitGroup, c chan int) int {
 
 func Stats(w http.ResponseWriter, r *http.Request) {
 	informe, err := getRatio()
-
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "Se presento un error")
